@@ -1,0 +1,152 @@
+/* ====== Base ====== */
+*{ box-sizing: border-box; }
+:root{
+  --bg:#111;
+  --bg-2:#1a1a1a;
+  --card:#222;
+  --text:#fff;
+  --muted:#bbb;
+  --gold:#f1c40f;
+  --gold-2:#d4ac0d;
+}
+html,body{margin:0}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ====== Header / Nav ====== */
+header{
+  position: sticky; top:0; z-index:1000;
+  background: linear-gradient(to right,#000,#222);
+  padding:14px 26px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid #000;
+}
+header h1{margin:0; font-size:1.25rem; color:var(--gold);}
+header nav a{
+  color: var(--gold);
+  text-decoration:none;
+  margin-left:16px;
+  font-weight:bold;
+}
+header nav a:hover{ text-decoration:underline; }
+
+/* ====== Hero ====== */
+.hero{
+  position:relative;
+  min-height:56vh;
+  display:grid; place-items:center;
+  background:url("img/hero.jpg") center/cover no-repeat;
+}
+.hero__overlay{
+  background: rgba(0,0,0,.5);
+  padding:40px 24px;
+  text-align:center;
+  width:min(900px,90%);
+  border-radius:12px;
+}
+.hero h2{font-size:2.2rem; margin:0 0 10px;}
+.hero p{color:#ddd; margin:0 0 16px;}
+
+/* ====== Botones ====== */
+.btn{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:8px;
+  background: var(--gold);
+  color:#000;
+  font-weight:bold;
+  text-decoration:none;
+  transition:transform .2s, background .2s;
+}
+.btn:hover{ background:var(--gold-2); transform:translateY(-2px);}
+.btn--primary{font-size:1rem;}
+.btn--link{
+  background:transparent; color:var(--gold); border:1px solid var(--gold);
+}
+.btn--link:hover{ color:#000; background:var(--gold); }
+
+/* ====== Secciones ====== */
+.contenedor{
+  padding:60px 28px;
+  width:min(1100px, 95%);
+  margin:0 auto;
+  scroll-margin-top:90px; /* compensa el header fijo */
+  text-align:center;
+}
+.contenedor h2{
+  font-size:2rem; margin:0 0 28px; color:var(--gold);
+}
+.seccion-oscura{ background: #101010; border-top:1px solid #000; border-bottom:1px solid #000; }
+
+/* ====== Grid & Cards ====== */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  gap:24px;
+  align-items: stretch;
+  justify-items: center;  /* centra las cards */
+}
+.card{
+  background: var(--card);
+  border-radius:12px;
+  padding:16px;
+  text-align:center;
+  box-shadow: 0 3px 8px rgba(0,0,0,.4);
+  transition: transform .2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;  /* todas del mismo ancho */
+}
+.card:hover{ transform: translateY(-6px); }
+.card img{
+  width:100%;
+  height:220px;       /* 🔑 altura fija */
+  object-fit:cover;
+  border-radius:10px;
+}
+.card h3{ margin:12px 0 6px; }
+.card p{ margin:0 0 8px; color: var(--muted); }
+
+/* ====== Texto genérico ====== */
+.texto{ max-width:800px; margin:0 auto; color:#ddd; line-height:1.6; }
+
+/* ====== Contacto ====== */
+.contacto-grid{
+  display:grid; gap:22px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.contacto-card{
+  background: var(--card);
+  border-radius:12px; padding:18px; text-align:left;
+  box-shadow: 0 3px 8px rgba(0,0,0,.4);
+}
+.contacto-card h3{ margin:0 0 10px; color:var(--gold); }
+.contacto-card p a{ color:#fff; text-decoration:none; }
+.contacto-card p a:hover{ text-decoration:underline; }
+
+/* ====== Redes ====== */
+.social-list{
+  list-style:none; padding:0; margin:0 auto;
+  display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
+}
+.social-list a{
+  color:#000; background:var(--gold);
+  padding:8px 12px; border-radius:8px; text-decoration:none; font-weight:bold;
+}
+.social-list a:hover{ background:var(--gold-2); }
+
+/* ====== Footer ====== */
+footer{
+  text-align:center; padding:20px; color:#aaa; background:#000; border-top:1px solid #111;
+}
+
+/* ====== Responsive pequeños ====== */
+@media (max-width: 520px){
+  header nav a{ margin-left:12px; font-size:.95rem; }
+  .hero h2{ font-size:1.6rem; }
+}
