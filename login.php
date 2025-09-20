@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <span>Usa tu cuenta</span>
                 <input type="email" name="email" placeholder="Correo" required>
                 <input type="password" name="password" placeholder="Contraseña" required>
-                <a href="#">¿Olvidaste tu contraseña?</a>
+                <a href="forgot_password.php">¿Olvidaste tu contraseña?</a>
                 <button type="submit">Iniciar sesión</button>
             </form>
         </div>
