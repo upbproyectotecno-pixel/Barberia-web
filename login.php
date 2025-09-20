@@ -15,29 +15,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            if (
-                $password === $row["password"] ||
-                password_verify($password, $row["password"])
-            ) {
+            // Verificar contraseña (hash o texto plano por compatibilidad)
+            if ($password === $row["password"] || password_verify($password, $row["password"])) {
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["nombre"] = $row["nombre"];
                 $_SESSION["rol"] = $row["rol"];
 
+                // Redirección según rol
                 if ($row["rol"] === "admin") {
+                    $stmt->close();
                     header("Location: panel_admin.php");
+                } elseif ($row["rol"] === "barbero") {
+                    $stmt->close();
+                    header("Location: dashboard_barbero.php");
                 } else {
-                    header("Location: index.php");
+                    $stmt->close();
+                    header("Location: dashboard.php");
                 }
                 exit();
             } else {
-                echo "<p style='color:red;'>⚠️ Contraseña incorrecta.</p>";
+                $_SESSION["flash"] = "⚠️ Contraseña incorrecta.";
+                $stmt->close();
+                header("Location: login.php");
+                exit();
             }
         } else {
-            echo "<p style='color:red;'>⚠️ Usuario no encontrado.</p>";
+            $_SESSION["flash"] = "⚠️ Usuario no encontrado.";
+            $stmt->close();
+            header("Location: login.php");
+            exit();
         }
-        $stmt->close();
     } else {
-        echo "<p style='color:red;'>⚠️ Correo o contraseña inválidos.</p>";
+        $_SESSION["flash"] = "⚠️ Correo o contraseña inválidos.";
+        header("Location: login.php");
+        exit();
     }
 }
 ?>
@@ -59,6 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <!-- 🔥 Título Animado -->
     <h1 class="titulo">Barber JSK</h1>
+
+    <!-- Mensajes Flash -->
+    <?php if (isset($_SESSION["flash"])): ?>
+        <p style="text-align:center; color: <?= strpos($_SESSION["flash"], '✅') !== false ? 'green' : 'red' ?>; font-weight:bold;">
+            <?= $_SESSION["flash"]; ?>
+        </p>
+        <?php unset($_SESSION["flash"]); ?>
+    <?php endif; ?>
 
     <div class="container" id="container">
 
@@ -92,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
                     <h1>Bienvenido de nuevo</h1>
-                    <p>Para mantenerte conectado con nosotros, por favor inicia sesión con tu información personal.</p>
+                    <p>Para mantenerte conectado con nosotros, inicia sesión con tu información personal.</p>
                     <button class="ghost" id="signIn">Iniciar sesión</button>
                 </div>
                 <div class="overlay-panel overlay-right">
@@ -102,7 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
             </div>
         </div>
-
     </div>
 
     <footer>
@@ -113,4 +131,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <script src="estilo/js/login.js"></script>
 </body>
 </html>
-
