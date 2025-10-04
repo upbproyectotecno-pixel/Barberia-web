@@ -19,16 +19,31 @@ if ($rol !== "admin") {
     exit();
 }
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="panel_admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2><i class="fas fa-cog"></i> Admin Panel</h2>
+        <p>👋 Bienvenido <?php echo htmlspecialchars($_SESSION["nombre"]); ?> (<?php echo $rol; ?>)</p>
+        <a href="dashboard.php"><i class="fas fa-home"></i> Volver al Dashboard</a>
+        <a href="usuarios_admin.php"><i class="fas fa-users"></i> Gestionar Usuarios</a>
+        <a href="servicios_admin.php"><i class="fas fa-scissors"></i> Gestionar Servicios</a>
+        <a href="dashboard.php"><i class="fas fa-calendar-check"></i> Gestionar Citas</a>
+        <a href="reportes_admin.php"><i class="fas fa-chart-line"></i> Reportes</a>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
 
-<h2>Panel de Administración</h2>
-<p>Bienvenido <?php echo htmlspecialchars($_SESSION["nombre"]); ?> (<?php echo $rol; ?>)</p>
-<a href="dashboard.php">Volver al Dashboard</a> | 
-<a href="logout.php">Cerrar sesión</a>
-
-<hr>
-<ul>
-    <li><a href="usuarios_admin.php">Gestionar Usuarios</a></li>
-    <li><a href="servicios_admin.php">Gestionar Servicios</a></li>
-    <li><a href="dashboard.php">Gestionar Citas</a></li>
-    <li><a href="reportes_admin.php">Reportes</a></li>
-</ul>
+    <!-- Contenido principal con imagen -->
+    <div class="main">
+         <img src="img/Logo.png" alt="BARBERIA JSK">
+    </div>
+</body>
+</html>

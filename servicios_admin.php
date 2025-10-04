@@ -59,43 +59,52 @@ if (isset($_POST["edit_id"])) {
 // Obtener lista de servicios
 $servicios = $conn->query("SELECT * FROM servicios");
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios Admin</title>
+    <link rel="stylesheet" href="servicios_admin.css">
+</head>
+<body>
+    <h2>Gestionar Servicios</h2>
+    <a class="btn-volver" href="dashboard.php">⬅ Volver al Dashboard</a>
 
-<h2>Gestionar Servicios</h2>
-<a href="dashboard.php">⬅ Volver al Dashboard</a>
+    <h3>Agregar servicio</h3>
+    <form method="POST" class="form-agregar">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="number" step="0.01" name="precio" placeholder="Precio" required>
+        <button type="submit">Agregar</button>
+    </form>
 
-<h3>Agregar servicio</h3>
-<form method="POST">
-    <input type="text" name="nombre" placeholder="Nombre" required>
-    <input type="number" step="0.01" name="precio" placeholder="Precio" required>
-    <button type="submit">Agregar</button>
-</form>
-
-<h3>Lista de servicios</h3>
-<table border="1" cellpadding="5">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-    </tr>
-    <?php while ($s = $servicios->fetch_assoc()) { ?>
+    <h3>Lista de servicios</h3>
+    <table>
         <tr>
-            <td><?php echo $s["id"]; ?></td>
-            <td><?php echo htmlspecialchars($s["nombre"]); ?></td>
-            <td>$<?php echo number_format($s["precio"], 2); ?></td>
-            <td>
-                <!-- Formulario para editar -->
-                <form method="POST" style="display:inline;">
-                    <input type="hidden" name="edit_id" value="<?php echo $s['id']; ?>">
-                    <input type="text" name="nuevo_nombre" value="<?php echo htmlspecialchars($s['nombre']); ?>" required>
-                    <input type="number" step="0.01" name="nuevo_precio" value="<?php echo $s['precio']; ?>" required>
-                    <button type="submit">Editar</button>
-                </form>
-                |
-                <!-- Botón eliminar -->
-                <a href="servicios_admin.php?delete_id=<?php echo $s['id']; ?>" 
-                   onclick="return confirm('¿Seguro que deseas eliminar este servicio?');">Eliminar</a>
-            </td>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Acciones</th>
         </tr>
-    <?php } ?>
-</table>
+        <?php while ($s = $servicios->fetch_assoc()) { ?>
+            <tr>
+                <td><?php echo $s["id"]; ?></td>
+                <td><?php echo htmlspecialchars($s["nombre"]); ?></td>
+                <td>$<?php echo number_format($s["precio"], 2); ?></td>
+                <td>
+                    <!-- Formulario para editar -->
+                    <form method="POST" class="form-editar">
+                        <input type="hidden" name="edit_id" value="<?php echo $s['id']; ?>">
+                        <input type="text" name="nuevo_nombre" value="<?php echo htmlspecialchars($s['nombre']); ?>" required>
+                        <input type="number" step="0.01" name="nuevo_precio" value="<?php echo $s['precio']; ?>" required>
+                        <button type="submit">Editar</button>
+                    </form>
+                    |
+                    <!-- Botón eliminar -->
+                    <a href="servicios_admin.php?delete_id=<?php echo $s['id']; ?>" 
+                       onclick="return confirm('¿Seguro que deseas eliminar este servicio?');">Eliminar</a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+</body>
+</html>

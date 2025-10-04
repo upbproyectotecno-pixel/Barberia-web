@@ -19,29 +19,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($password === $row["password"] || password_verify($password, $row["password"])) {
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["nombre"] = $row["nombre"];
-                $_SESSION["rol"] = $row["rol"];
+                $_SESSION["rol"] = strtolower(trim($row["rol"])); // normalizamos
 
                 // Redirección según rol
-                if ($row["rol"] === "admin") {
-                    $stmt->close();
-                    header("Location: panel_admin.php");
-                } elseif ($row["rol"] === "barbero") {
-                    $stmt->close();
-                    header("Location: dashboard_barbero.php");
-                } else {
-                    $stmt->close();
-                    header("Location: dashboard.php");
+                switch ($_SESSION["rol"]) {
+                    case "admin":
+                        header("Location: panel_admin.php");
+                        break;
+                    case "barbero":
+                        header("Location: barberos.php");
+                        break;
+                    case "usuario":
+                    default:
+                        header("Location: dashboard.php");
+                        break;
                 }
                 exit();
             } else {
                 $_SESSION["flash"] = "⚠️ Contraseña incorrecta.";
-                $stmt->close();
                 header("Location: login.php");
                 exit();
             }
         } else {
             $_SESSION["flash"] = "⚠️ Usuario no encontrado.";
-            $stmt->close();
             header("Location: login.php");
             exit();
         }

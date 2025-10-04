@@ -1,0 +1,77 @@
+/* ===== Reset general ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 240px;
+    background: #111;
+    color: #fff;
+    position: fixed;
+    height: 100vh;
+    padding: 20px;
+    border-right: 2px solid #222;
+    z-index: 10;
+}
+
+.sidebar h2 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    color: #f39c12;
+}
+
+.sidebar p {
+    margin: 10px 0 20px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.sidebar a {
+    display: block;
+    color: #bbb;
+    text-decoration: none;
+    margin: 10px 0;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.sidebar i {
+    margin-right: 10px;
+}
+
+/* ===== Main con imagen ===== */
+.main {
+    margin-left: 240px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    overflow: hidden;
+}
+
+/* Imagen con efecto de olas */
+.main img {
+    max-width: 90%;
+    max-height: 90%;
+    animation: wave 6s ease-in-out infinite;
+}
+
+/* Animación ondulante */
+@keyframes wave {
+    0%   { transform: translateY(0) rotate(0deg); }
+    25%  { transform: translateY(-10px) rotate(-1deg); }
+    50%  { transform: translateY(0) rotate(0deg); }
+    75%  { transform: translateY(10px) rotate(1deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
